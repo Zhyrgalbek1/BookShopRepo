@@ -7,5 +7,4 @@ public interface IBookRepo : IRepository<Book>
 {
        Task<Book?> GetByTitleAsync(string title);
        Task<bool> DeleteByTitleAsync(string title);
-
 }

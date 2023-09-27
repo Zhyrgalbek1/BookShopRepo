@@ -17,7 +17,7 @@ public class BookRepo : IBookRepo
 
     public async Task CreateAsync(Book entity)
     {
-        await _context.Books.AddAsync(entity).ConfigureAwait(false);
+        await _context.Books.AddAsync(entity);
     }
 
     public async Task<bool> DeleteByIdAsync(long id, CancellationToken cancellationToken)

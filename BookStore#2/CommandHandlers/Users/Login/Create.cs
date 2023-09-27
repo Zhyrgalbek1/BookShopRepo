@@ -12,12 +12,22 @@ namespace Application.Users.Commands
         public long Id { get; init; }
         public required string Username { get; init; }
         public required UserRole Role { get; init; }
+
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; }
+        public required DateTime DateOfBirth { get; set; }
     }
     public record CreateUserCommand : IRequest<CreateUserResponse>
     {
         public required string Username { get; init; }
         public required string Password { get; init; }
         public required UserRole Role { get; init; }
+
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; }
+        public required DateTime DateOfBirth { get; set; }
     }
 
     internal class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
@@ -41,6 +51,15 @@ namespace Application.Users.Commands
                 Basket = new(),
             };
 
+            var profile = new UserProfile
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                DateOfBirth = request.DateOfBirth,
+                User = user,
+            };
+
             await _userRepository.CreateAsync(user);
             await _unitOfWork.CommitAsync();
 
@@ -49,6 +68,10 @@ namespace Application.Users.Commands
                 Id = user.Id,
                 Username = user.Username,
                 Role = user.Role,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                DateOfBirth = request.DateOfBirth,
             };
             return response;
         }

@@ -23,6 +23,12 @@ public class AppDbContext : DbContext
             .IsUnique();
         modelBuilder.Entity<User>().Navigation(u => u.Basket).AutoInclude();
         modelBuilder.Entity<Basket>().Navigation(b => b.Books).AutoInclude();
-    }
 
+        var userProfile = modelBuilder.Entity<UserProfile>();
+        userProfile.ToTable("UserProfiles");
+        userProfile.HasKey(up => up.UserId);
+
+        var user = modelBuilder.Entity<User>();
+        user.HasIndex(c => c.Username).IsUnique();
+    }
 }

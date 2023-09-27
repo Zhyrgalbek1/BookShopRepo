@@ -9,4 +9,5 @@ public class User
     public required string PasswordHash { get; set; }
     public UserRole Role { get; set; }
     public Basket Basket { get; set; } = new();
+    public UserProfile? Profile { get; set; }
 }

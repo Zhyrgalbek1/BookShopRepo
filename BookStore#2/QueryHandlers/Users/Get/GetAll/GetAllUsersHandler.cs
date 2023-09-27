@@ -11,7 +11,7 @@ internal class GetByUsernameHandler : IRequestHandler<GetAllUsersRequest, IEnume
     {
         _userRepository = userRepository;
     }
-
+    6
     public async Task<IEnumerable<GetUsersResponse>> Handle(GetAllUsersRequest request, CancellationToken cancellationToken)
     {
         var users = await _userRepository.GetAllAsync(cancellationToken);
@@ -23,6 +23,11 @@ internal class GetByUsernameHandler : IRequestHandler<GetAllUsersRequest, IEnume
                 Id = user.Id,
                 Username = user.Username,
                 Role = user.Role,
+                DateOfBirth = user.Profile.DateOfBirth,
+                FirstName = user.Profile.FirstName,
+                LastName = user.Profile.LastName,
+                Email = user.Profile.Email,
+
             };
             response.Add(result);
         }

@@ -26,6 +26,16 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUser>
             Basket = new(),
         };
 
+        var profile = new UserProfile
+        {
+            DateOfBirth = request.DateOfBirth,
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            Email = request.Email,
+            User = user,
+
+        };
+
         await _userRepository.CreateAsync(user);
         await _unitOfWork.CommitAsync();
 
@@ -34,6 +44,10 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUser>
             Id = user.Id,
             Username = user.Username,
             Role = user.Role,
+            DateOfBirth = profile.DateOfBirth,
+            FirstName = profile.FirstName,
+            LastName = profile.LastName,
+            Email = profile.Email,
         };
         return result;
     }

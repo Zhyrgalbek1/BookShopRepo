@@ -7,4 +7,5 @@ public class Book
     public string? Description { get; set; }
     public required int Count { get; set; }
     public required decimal Price { get; set; }
+
 }

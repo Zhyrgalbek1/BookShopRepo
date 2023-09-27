@@ -27,6 +27,7 @@ namespace WebApi.Controllers
             return Ok(token);
         }
 
+    
         [HttpPost("Register")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Register(CreateUserCommand command)
