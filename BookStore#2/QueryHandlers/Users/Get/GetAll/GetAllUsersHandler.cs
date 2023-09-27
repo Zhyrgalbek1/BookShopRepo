@@ -1,36 +1,31 @@
-﻿using Domain.Repos;
+﻿using Domain.Entities;
+using Domain.Repos;
 using MediatR;
 
 namespace QueryHandlers.Users.Get.GetAll;
 
-internal class GetByUsernameHandler : IRequestHandler<GetAllUsersRequest, IEnumerable<GetUsersResponse>>
+internal class GetAllUsersHandler : IRequestHandler<GetAllUsersRequest, IEnumerable<GetUsersResponse>>
 {
     private readonly IUserRepo _userRepository;
 
-    public GetByUsernameHandler(IUserRepo userRepository)
+    public GetAllUsersHandler(IUserRepo userRepository)
     {
         _userRepository = userRepository;
     }
-    6
     public async Task<IEnumerable<GetUsersResponse>> Handle(GetAllUsersRequest request, CancellationToken cancellationToken)
     {
         var users = await _userRepository.GetAllAsync(cancellationToken);
-        var response = new List<GetUsersResponse>();
-        foreach (var user in users)
-        {
-            var result = new GetUsersResponse
+        var response = users.Select(u =>
+            new GetUsersResponse
             {
-                Id = user.Id,
-                Username = user.Username,
-                Role = user.Role,
-                DateOfBirth = user.Profile.DateOfBirth,
-                FirstName = user.Profile.FirstName,
-                LastName = user.Profile.LastName,
-                Email = user.Profile.Email,
+                Id = u.Id,
+                Username = u.Username,
+                Role = u.Role,
+                FirstName = u.Profile.FirstName,
+                LastName = u.Profile.LastName,
+                Email = u.Profile.Email,
+            });
 
-            };
-            response.Add(result);
-        }
         return response;
     }
 }

@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Repos;
 using MediatR;
+using Domain.Enums;
 
 namespace CommandHandlers.Users.Create;
 
@@ -24,16 +25,12 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUser>
             PasswordHash = request.Password,
             Role = request.Role,
             Basket = new(),
-        };
-
-        var profile = new UserProfile
-        {
-            DateOfBirth = request.DateOfBirth,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Email = request.Email,
-            User = user,
-
+            Profile = new UserProfile
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+            },
         };
 
         await _userRepository.CreateAsync(user);
@@ -44,10 +41,9 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUser>
             Id = user.Id,
             Username = user.Username,
             Role = user.Role,
-            DateOfBirth = profile.DateOfBirth,
-            FirstName = profile.FirstName,
-            LastName = profile.LastName,
-            Email = profile.Email,
+            FirstName = user.Profile.FirstName,
+            LastName = user.Profile.LastName,
+            Email = user.Profile.Email,
         };
         return result;
     }

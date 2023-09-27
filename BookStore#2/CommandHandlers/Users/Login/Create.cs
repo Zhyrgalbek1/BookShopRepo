@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using CommandHandlers.Users.Create;
+using Domain.Entities;
 using Domain.Enums;
 using Domain.Repos;
 using Infrastructure.Shared;
@@ -16,7 +17,6 @@ namespace Application.Users.Commands
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
         public required string Email { get; set; }
-        public required DateTime DateOfBirth { get; set; }
     }
     public record CreateUserCommand : IRequest<CreateUserResponse>
     {
@@ -27,7 +27,6 @@ namespace Application.Users.Commands
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
         public required string Email { get; set; }
-        public required DateTime DateOfBirth { get; set; }
     }
 
     internal class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
@@ -49,31 +48,27 @@ namespace Application.Users.Commands
                 PasswordHash = request.Password,
                 Role = request.Role,
                 Basket = new(),
-            };
-
-            var profile = new UserProfile
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                DateOfBirth = request.DateOfBirth,
-                User = user,
+                Profile = new UserProfile
+                {
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Email = request.Email,
+                },
             };
 
             await _userRepository.CreateAsync(user);
             await _unitOfWork.CommitAsync();
 
-            var response = new CreateUserResponse
+            var result = new CreateUserResponse
             {
                 Id = user.Id,
                 Username = user.Username,
                 Role = user.Role,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                DateOfBirth = request.DateOfBirth,
+                FirstName = user.Profile.FirstName,
+                LastName = user.Profile.LastName,
+                Email = user.Profile.Email,
             };
-            return response;
+            return result;
         }
     }
 }

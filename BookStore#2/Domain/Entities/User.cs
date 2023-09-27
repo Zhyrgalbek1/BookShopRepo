@@ -8,6 +8,6 @@ public class User
     public required string Username { get; set; }
     public required string PasswordHash { get; set; }
     public UserRole Role { get; set; }
-    public Basket Basket { get; set; } = new();
-    public UserProfile? Profile { get; set; }
+    public required Basket Basket { get; set; }
+    public required UserProfile Profile { get; set; }
 }

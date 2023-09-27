@@ -22,6 +22,7 @@ public class AppDbContext : DbContext
             .HasIndex(u => u.Username)
             .IsUnique();
         modelBuilder.Entity<User>().Navigation(u => u.Basket).AutoInclude();
+        modelBuilder.Entity<User>().Navigation(u => u.Profile).AutoInclude();
         modelBuilder.Entity<Basket>().Navigation(b => b.Books).AutoInclude();
 
         var userProfile = modelBuilder.Entity<UserProfile>();
