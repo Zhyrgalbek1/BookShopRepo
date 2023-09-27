@@ -5,8 +5,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QueryHandlers.Books.GetAll;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApi.Controllers;
+
 
 [ApiController, Route("api/book")]
 public class BookController : ControllerBase
@@ -18,6 +20,7 @@ public class BookController : ControllerBase
         _mediator = mediator;
     }
 
+    [SwaggerOperation("Посмотреть все книги")]
     [HttpGet("GetAllBooks")]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -27,6 +30,7 @@ public class BookController : ControllerBase
         return Ok(books);
     }
 
+    [SwaggerOperation("Добавить книгу (Админ)")]
     [Authorize(Roles = "Admin")]
     [HttpPost("AddBook")]
     public async Task<IActionResult> Create(CreateBook request, CancellationToken cancellationToken)
@@ -36,6 +40,7 @@ public class BookController : ControllerBase
         return Ok();
     }
 
+    [SwaggerOperation("Удалить по названию (Админ)")]
     [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteByTitle")]
     public async Task<IActionResult> DeleteByTitle(DeleteBookByTitle request, CancellationToken cancellationToken)
@@ -45,6 +50,7 @@ public class BookController : ControllerBase
         return Ok();
     }
 
+    [SwaggerOperation("Удалить по ID (Админ)")]
     [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteById")]
     public async Task<IActionResult> DeleteById(DeleteBookById request, CancellationToken cancellationToken)

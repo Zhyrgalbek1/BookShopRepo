@@ -4,12 +4,22 @@ using Domain.Enums;
 using Domain.Repos;
 using Infrastructure.Shared;
 using MediatR;
-
-
 namespace Application.Users.Commands
 {
-    public record CreateUserResponse
+
+    public record CreateUserCommandExample
     {
+        public required string Username { get; init; }
+        public required string Password { get; init; }
+        public required string Role { get; init; }
+
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; }
+        
+    }
+    public record CreateUserResponse
+    { 
         public long Id { get; init; }
         public required string Username { get; init; }
         public required UserRole Role { get; init; }

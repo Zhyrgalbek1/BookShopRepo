@@ -6,13 +6,20 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Swashbuckle.AspNetCore.Filters;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<Program>();
+
+
 builder.Services.AddSwaggerGen(c =>
 {
+    
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStoreApi#2", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -36,6 +43,8 @@ builder.Services.AddSwaggerGen(c =>
             new string[] { }
         }
     });
+    c.EnableAnnotations();
+    c.ExampleFilters();
 });
 
 builder.Services.AddInfrastructure(builder.Configuration);

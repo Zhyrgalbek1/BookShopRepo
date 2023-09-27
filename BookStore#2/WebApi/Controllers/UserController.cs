@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using QueryHandlers.Users.Get.GetAll;
 using Microsoft.AspNetCore.Authorization;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApi.Controllers;
 
@@ -18,6 +19,7 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
+    [SwaggerOperation("Посмотреть всех пользователей (Админ)")]
     [Authorize(Roles = "Admin")]
     [HttpGet("GetAllUsers")]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -28,6 +30,7 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
+    [SwaggerOperation("Посмотреть пользователя по 'Username' (Админ)")]
     [Authorize(Roles = "Admin")]
     [HttpPost("GetByName")]
     public async Task<IActionResult> GetByName(GetUserByNameCommand command)
@@ -38,6 +41,7 @@ public class UserController : ControllerBase
         return NotFound();
     }
 
+    [SwaggerOperation("Изменить данные о пользователе (Админ)")]
     [Authorize(Roles = "Admin")]
     [HttpPost("Update")]
     public async Task<IActionResult> Update(UpdateUserCommand command)
@@ -49,6 +53,7 @@ public class UserController : ControllerBase
     }
 
 
+    [SwaggerOperation("Удалить пользователя по 'Username (Админ)'")]
     [HttpDelete("DeleteByUsername")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(DeleteUserByUsername command)
@@ -61,6 +66,7 @@ public class UserController : ControllerBase
     }
 
 
+    [SwaggerOperation("Удалить пользователя по 'ID' (Админ)")]
     [HttpDelete("DeleteById")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Deleted(DeleteUserById command)

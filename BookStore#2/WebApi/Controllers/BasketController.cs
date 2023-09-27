@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using QueryHandlers.Baskets;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Security.Claims;
 
 namespace WebApi.Controllers;
@@ -19,7 +20,7 @@ public class BasketController : ControllerBase
         _logger = logger;
     }
 
-
+    [SwaggerOperation("Добавить книгу в корзину")]
     [HttpPost("AddBookToBasket")]
     public async Task<IActionResult> Add(string title)
     {
@@ -39,6 +40,7 @@ public class BasketController : ControllerBase
         return BadRequest("");
     }
 
+    [SwaggerOperation("Посмотреть книги в корзине")]
     [HttpPost("GetBooksFromBasket")]
     public async Task<IActionResult> Get()
     {

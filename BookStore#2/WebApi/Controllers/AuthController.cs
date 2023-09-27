@@ -3,10 +3,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/login")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -19,6 +20,7 @@ public class AuthController : ControllerBase
         _logger = logger;
     }
 
+    [SwaggerOperation("Войти")]
     [AllowAnonymous]
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginCommand command)
@@ -27,6 +29,7 @@ public class AuthController : ControllerBase
         return Ok(token);
     }
 
+    [SwaggerOperation("Регистрация (Доступна в бете)")]
     [AllowAnonymous]
     [HttpPost("Register")]
     //[Authorize(Roles = "Admin")]
