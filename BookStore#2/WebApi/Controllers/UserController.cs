@@ -49,7 +49,7 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpDelete("DeleteByNames")]
+    [HttpDelete("DeleteByUsername")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(DeleteUserByUsername command)
     {

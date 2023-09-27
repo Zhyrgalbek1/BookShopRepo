@@ -13,4 +13,16 @@ public class AppDbContext : DbContext
     public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
     public DbSet<Basket> Baskets => Set<Basket>();
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Book>()
+            .HasIndex(b => b.Title)
+            .IsUnique();
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Username)
+            .IsUnique();
+        modelBuilder.Entity<User>().Navigation(u => u.Basket).AutoInclude();
+        modelBuilder.Entity<Basket>().Navigation(b => b.Books).AutoInclude();
+    }
+
 }

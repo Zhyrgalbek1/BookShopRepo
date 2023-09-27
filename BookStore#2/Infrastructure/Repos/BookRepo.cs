@@ -36,7 +36,7 @@ public class BookRepo : IBookRepo
         var book = await _context.Books.FirstOrDefaultAsync(b => b.Title == title);
         if (book is not null)
         {
-            _context.Users.Remove(book);
+            _context.Books.Remove(book);
             return true;
         }
         return false;
@@ -56,10 +56,5 @@ public class BookRepo : IBookRepo
     public void Update(Book entity)
     {
         _context.Books.Update(entity);
-    }
-
-    Task<bool> IRepository<Book>.DeleteByIdAsync(long id, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
     }
 }

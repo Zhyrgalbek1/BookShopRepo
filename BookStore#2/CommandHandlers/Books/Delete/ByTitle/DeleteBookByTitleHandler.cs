@@ -18,8 +18,9 @@ internal class DeleteBookByUsernameHandler : IRequestHandler<DeleteBookByTitle,b
 
     public async Task<bool> Handle(DeleteBookByTitle request, CancellationToken cancellationToken)
     {
-       await _bookRepository.DeleteByTitleAsync(request.Title).ConfigureAwait(false);
-       await _unitOfWork.CommitAsync();
-        return true;
+        var response = await _bookRepository.DeleteByTitleAsync(request.Title);
+        if (response == true)
+            await _unitOfWork.CommitAsync();
+        return response;
     }
 }

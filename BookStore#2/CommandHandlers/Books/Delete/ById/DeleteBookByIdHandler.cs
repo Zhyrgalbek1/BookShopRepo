@@ -23,6 +23,4 @@ public class DeleteByIdHandler : IRequestHandler<DeleteBookById, bool>
             await _unitOfWork.CommitAsync();
         return response;
     }
-
-
 }

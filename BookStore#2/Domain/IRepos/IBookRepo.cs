@@ -6,6 +6,6 @@ namespace Domain.Repos;
 public interface IBookRepo : IRepository<Book>
 {
        Task<Book?> GetByTitleAsync(string title);
-       Task DeleteByTitleAsync(string title);
+       Task<bool> DeleteByTitleAsync(string title);
 
 }
