@@ -33,6 +33,9 @@ internal class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUser
                 Id = user.Id,
                 Username = user.Username,
                 Role = user.Role,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
             };
             return response;
         }
@@ -40,4 +43,3 @@ internal class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUser
     }
 
 }
-

@@ -26,7 +26,8 @@ public static class ConfigServices
         services.AddTransient<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IUserRepo, UserRepo>();
         services.AddTransient<IBookRepo,BookRepo>();
-        services.AddTransient<IBasketRepo,BasketRepository>();
+        services.AddTransient<IBasketRepo,BasketRepo>();
+        services.AddTransient<IOrderRepository, OrderRepo>();
 
         return services;
     }

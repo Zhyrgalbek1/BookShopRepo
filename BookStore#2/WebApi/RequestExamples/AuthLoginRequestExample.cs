@@ -1,11 +1,5 @@
 ﻿using Application.Users.Commands;
-using Domain.Entities;
 using Swashbuckle.AspNetCore.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApi.AuthRequestExample;
 

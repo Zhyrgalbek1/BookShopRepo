@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastucture.Repositories
 {
-    public class BasketRepository : IBasketRepo
+    public class BasketRepo : IBasketRepo
     {
         private readonly AppDbContext _appDbContext;
 
-        public BasketRepository(AppDbContext appDbContext)
+        public BasketRepo(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

@@ -48,7 +48,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication();
 builder.Services.AddQueryHandler();
 builder.Services.AddCommandHandler();
 

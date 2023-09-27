@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Book> Books => Set<Book>();
     public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
     public DbSet<Basket> Baskets => Set<Basket>();
+    public DbSet<Order> Orders => Set<Order>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
